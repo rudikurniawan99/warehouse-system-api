@@ -7,3 +7,11 @@ export const createUser = async (body: UserInput) => {
     throw new Error(e)
   }
 }
+
+export const findUserByEmail = async (email: string) => {
+  try {
+    return await UserModel.findOne({ email }) 
+  } catch (e: any) {
+    throw new Error("email not found");
+  }
+}

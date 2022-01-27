@@ -19,3 +19,14 @@ export const createUserSchema = object({
     path: ['passwordConfirmation']
   })
 })
+
+export const loginUserSchema = object({
+  body: object({
+    email: string({
+      required_error: 'email tidak valid'
+    }).email('email tidak boleh kosong'),
+    password: string({
+      required_error: 'password tidak boleh kosong'
+    }).min(8, 'minimal terdiri dari 8 karakter')
+  })
+})

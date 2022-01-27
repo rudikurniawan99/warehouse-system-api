@@ -17,9 +17,25 @@ export const registerUserHandler = async (req: Request<{}, {}, UserInput>, res: 
 export const loginUserHandler = async (req: Request<{}, {}, { email: string, password: string }>, res: Response) => {
   const { body } = req
 
-  const user = await findUserByEmail(body.email)
+  try {
+    const user = await findUserByEmail(body.email)
+    if(!user){
+      res.status(400).json({
+        message: 'email tidak ditemukan'
+      })
+    } 
 
-  res.status(200).json({
-    data: user
-  })
+    const valid = await user?.verifyPassword(body.password)
+    if(!valid){
+      res.status(400).json({
+        message: 'password tidak sesuai dengan email ini'
+      })
+    }
+    res.status(200).json({
+      data: user
+    })
+
+  } catch (e: any) {
+    throw new Error(e);
+  }
 }

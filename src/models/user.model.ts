@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next){
   let user = this as UserDocument
-  if(!user.isModified('passsword')){
+  if(!user.isModified('password')){
     next()
   }
   const hashPassword = await argon.hash(user.password)

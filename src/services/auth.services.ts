@@ -12,6 +12,6 @@ export const findUserByEmail = async (email: string) => {
   try {
     return await UserModel.findOne({ email }) 
   } catch (e: any) {
-    console.log(e);
+    throw new Error(e)
   }
 }

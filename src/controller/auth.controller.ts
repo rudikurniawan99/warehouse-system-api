@@ -20,14 +20,14 @@ export const loginUserHandler = async (req: Request<{}, {}, { email: string, pas
   try {
     const user = await findUserByEmail(body.email)
     if(!user){
-      res.status(400).json({
+      return res.status(400).json({
         message: 'email tidak ditemukan'
       })
     } 
 
     const valid = await user?.verifyPassword(body.password)
     if(!valid){
-      res.status(400).json({
+      return res.status(400).json({
         message: 'password tidak sesuai dengan email ini'
       })
     }

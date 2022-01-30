@@ -2,10 +2,10 @@ import mongoose, { Document, Schema } from 'mongoose'
 import { UserDocument } from './user.model'
 
 interface ProductInput {
-  admin: UserDocument['_id']
+  adminId: UserDocument['_id']
   name: string,
-  stock: number,
-  size: string[]
+  stock?: number,
+  size?: string[]
 }
 
 interface ProductDocument extends ProductInput, Document {
@@ -14,7 +14,7 @@ interface ProductDocument extends ProductInput, Document {
 } 
 
 const productSchema = new mongoose.Schema({
-  admin: {
+  adminId: {
     type: Schema.Types.ObjectId,
     required: true
   },

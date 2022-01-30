@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserInput } from "../models/user.model";
 import { createUser, findUserByEmail } from "../services/auth.services";
-import { jwtSign } from "../utils/jwt";
+import { jwtSign, jwtVerify } from "../utils/jwt";
 
 export const registerUserHandler = async (req: Request<{}, {}, UserInput>, res: Response) => {
   const { body } = req
@@ -56,4 +56,30 @@ export const loginUserHandler = async (req: Request<{}, {}, { email: string, pas
   } catch (e: any) {
     throw new Error(e);
   }
+}
+
+export const refreshAccessTokenHandler = async (req: Request, res: Response) => {
+  const refreshToken = req.cookies.refreshToken
+  const refreshTokenPrivateKey = String(process.env.REFRESH_TOKEN_PRIVATE_KEY)
+  const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
+
+  try {
+    const user = await jwtVerify<{ id: string }>(refreshToken, refreshTokenPrivateKey)
+    if(!user){
+      return res.status(201).json({
+        message: `don't recognize user`
+      })
+    }
+
+    const accessToken = jwtSign({ id: user?.id }, accessTokenPrivateKey, {
+      expiresIn: '1m'
+    })
+    res.status(200).json({
+      accessToken
+    })
+  } catch (e: any) {
+    throw new Error(e);
+     
+  }
+
 }

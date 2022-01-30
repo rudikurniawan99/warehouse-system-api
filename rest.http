@@ -17,3 +17,6 @@ Content-Type: application/json
   "email": "rudikurniawan503@gmail.com",
   "password": "kurniawan"
 }
+
+### refresh token 
+GET http://localhost:4000/auth/token

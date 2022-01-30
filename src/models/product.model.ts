@@ -3,9 +3,9 @@ import { UserDocument } from './user.model'
 
 interface ProductInput {
   admin: UserDocument['_id']
-  name: string
-
-
+  name: string,
+  stock: number,
+  size: string[]
 }
 
 interface ProductDocument extends ProductInput, Document {

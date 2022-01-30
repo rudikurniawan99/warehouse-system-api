@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserInput } from "../models/user.model";
 import { createUser, findUserByEmail } from "../services/auth.services";
+import { jwtSign } from "../utils/jwt";
 
 export const registerUserHandler = async (req: Request<{}, {}, UserInput>, res: Response) => {
   const { body } = req
@@ -31,8 +32,25 @@ export const loginUserHandler = async (req: Request<{}, {}, { email: string, pas
         message: 'password tidak sesuai dengan email ini'
       })
     }
+
+    const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
+    const refreshTokenPrivateKey = String(process.env.REFRESH_TOKEN_PRIVATE_KEY)
+
+    const accessToken = jwtSign({ id: user._id }, accessTokenPrivateKey, {
+      expiresIn: '1m'
+    })
+
+    const refreshToken = jwtSign({ id: user._id }, refreshTokenPrivateKey, {
+      expiresIn: '30d'
+    })
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    })
+
     res.status(200).json({
-      data: user
+      accessToken,
     })
 
   } catch (e: any) {

@@ -66,7 +66,7 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
   try {
     const user = await jwtVerify<{ id: string }>(refreshToken, refreshTokenPrivateKey)
     if(!user){
-      return res.status(201).json({
+      return res.status(401).json({
         message: `don't recognize user`
       })
     }
@@ -79,7 +79,6 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
     })
   } catch (e: any) {
     throw new Error(e);
-     
   }
 
 }

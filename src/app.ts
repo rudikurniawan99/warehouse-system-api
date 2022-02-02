@@ -1,11 +1,13 @@
 require('dotenv').config('../.env')
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import connectDB from './utils/connectDB'
 import router from './routes'
 
 const port = process.env.PORT
 const app = express()
 app.use(express.json())
+app.use(cookieParser())
 app.use(router)
 
 app.listen(port || 4000, () => {

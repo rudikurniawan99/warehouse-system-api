@@ -82,3 +82,11 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
   }
 
 }
+
+export const logoutHandler = async (req: Request, res: Response) => {
+  const refreshToken = req.cookies.refreshToken
+  if(!refreshToken) return res.sendStatus(402)
+
+  res.clearCookie('refreshToken')
+  return res.sendStatus(200)
+}

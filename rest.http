@@ -20,3 +20,6 @@ Content-Type: application/json
 
 ### refresh token 
 GET http://localhost:4000/auth/token
+
+### logout
+DELETE http://localhost:4000/auth/logout

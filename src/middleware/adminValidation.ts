@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { AccessTokenPayload } from "../interfaces/user.interface";
 import { jwtVerify } from "../utils/jwt";
 
-interface AccessTokenPayload {
-  _id: string
-  admin_status: 'OWNER' | 'ADMIN'
-}
 
 const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
 

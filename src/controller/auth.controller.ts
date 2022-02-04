@@ -59,11 +59,15 @@ export const loginUserHandler = async (req: Request<{}, {}, { email: string, pas
 }
 
 export const refreshAccessTokenHandler = async (req: Request, res: Response) => {
-  const refreshToken = req.cookies.refreshToken
   const refreshTokenPrivateKey = String(process.env.REFRESH_TOKEN_PRIVATE_KEY)
   const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
 
   try {
+    const refreshToken = req.cookies.refreshToken
+    if(!refreshToken) return res.status(401).json({
+      message: `you're not logged in`
+    })
+
     const user = await jwtVerify<{ id: string }>(refreshToken, refreshTokenPrivateKey)
     if(!user){
       return res.status(401).json({

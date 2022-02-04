@@ -85,7 +85,9 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
 
 export const logoutHandler = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken
-  if(!refreshToken) return res.sendStatus(402)
+  if(!refreshToken) return res.status(402).json({
+    message: `you're not logged in`
+  })
 
   res.clearCookie('refreshToken')
   return res.sendStatus(200)

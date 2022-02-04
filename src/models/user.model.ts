@@ -5,6 +5,7 @@ export interface UserInput {
   name: string
   email: string
   password: string
+  admin_status: 'OWNER' | 'ADMIN'
 }
 
 export interface UserDocument extends UserInput, Document {
@@ -26,6 +27,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  admin_status: {
+    type: String,
+    required: true,
+    default: 'ADMIN'
   }
 }, {
   timestamps: true

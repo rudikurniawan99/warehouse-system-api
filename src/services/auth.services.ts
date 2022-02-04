@@ -15,3 +15,11 @@ export const findUserByEmail = async (email: string) => {
     throw new Error(e)
   }
 }
+
+export const deleteAllUser = async () => {
+  try {
+    return await UserModel.deleteMany() 
+  } catch (e: any) {
+    throw new Error(e) 
+  }
+}

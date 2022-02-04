@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserInput } from "../models/user.model";
-import { createUser, findUserByEmail } from "../services/auth.services";
+import { createUser, deleteAllUser, findUserByEmail } from "../services/auth.services";
 import { jwtSign, jwtVerify } from "../utils/jwt";
 
 export const registerUserHandler = async (req: Request<{}, {}, UserInput>, res: Response) => {
@@ -91,4 +91,12 @@ export const logoutHandler = async (req: Request, res: Response) => {
 
   res.clearCookie('refreshToken')
   return res.sendStatus(200)
+}
+
+export const deleteAllUserHandler =  async (req: Request, res: Response) => {
+  const deletedItem =  await deleteAllUser()
+  res.status(200).json({
+    deletedItem,
+    message: 'success to delete all user'
+  })
 }

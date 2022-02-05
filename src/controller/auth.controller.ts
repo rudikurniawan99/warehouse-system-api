@@ -78,14 +78,17 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
       message: `you're not logged in`
     })
 
-    const user = await jwtVerify<{ id: string }>(refreshToken, refreshTokenPrivateKey)
+    const user = await jwtVerify<AccessTokenPayload>(refreshToken, refreshTokenPrivateKey)
     if(!user){
       return res.status(401).json({
         message: `don't recognize user`
       })
     }
 
-    const accessToken = jwtSign({ id: user?.id }, accessTokenPrivateKey, {
+    const accessToken = jwtSign({ 
+      _id: user?._id,
+      adminStatus: user?.adminStatus
+    }, accessTokenPrivateKey, {
       expiresIn: '1m'
     })
     res.status(200).json({

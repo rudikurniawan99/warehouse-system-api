@@ -30,7 +30,7 @@ DELETE http://localhost:4000/auth/delete-all-user
 
 ### Produc Create 
 POST http://localhost:4000/products
-Authorization: Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDQwMjUzNjksImV4cCI6MTY0NDAyNTQyOX0.VOzVQuXQvpGhTofQSG7z2VH2KBDQoY1NOPY5bLZbYdw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZkZDRmZjM2ZGUyZWVmZTU1MjVhOGYiLCJhZG1pblN0YXR1cyI6IkFETUlOIiwiaWF0IjoxNjQ0MDMwNjM0LCJleHAiOjE2NDQwMzA2OTR9.CWN0YXazW3Kz--oyfKSY4TKkKXzSqCHA2HxYiIo3vsE
 Content-Type: application/json
 
 {

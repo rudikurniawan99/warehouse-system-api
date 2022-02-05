@@ -22,7 +22,14 @@ const adminValidation = async (req: Request, res: Response, next: NextFunction) 
   try {
     if(!accessToken) return res.sendStatus(401)
     const decoded = await jwtVerify<AccessTokenPayload>(accessToken, accessTokenPrivateKey) 
-    if(decoded?.adminStatus === 'ADMIN' || decoded?.adminStatus === 'OWNER') next()
+    if(decoded?.adminStatus === 'ADMIN' || decoded?.adminStatus === 'OWNER'){
+      next()
+    }else {
+      return res.status(401).json({
+        message: 'refreshToken expired'
+      })
+    }
+
   } catch (error) {
     return res.sendStatus(402) 
   }

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
+import { AccessTokenPayload } from "../interfaces/user.interface";
 import { UserInput } from "../models/user.model";
-import { createUser, deleteAllUser, findUserByEmail } from "../services/auth.services";
+import { createUser, deleteAllUser, findUserByEmail, removeRefreshToken } from "../services/auth.services";
 import { jwtSign, jwtVerify } from "../utils/jwt";
 
 export const registerUserHandler = async (req: Request<{}, {}, UserInput>, res: Response) => {
@@ -98,11 +99,18 @@ export const refreshAccessTokenHandler = async (req: Request, res: Response) => 
 
 export const logoutHandler = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken
+  const refreshTokenPrivateKey = process.env.REFRESH_TOKEN_PRIVATE_KEY as string
+
   if(!refreshToken) return res.status(402).json({
     message: `you're not logged in`
   })
 
+  const decoded = await jwtVerify<AccessTokenPayload>(refreshToken, refreshTokenPrivateKey)
+  if(!decoded) return res.sendStatus(401)
+
+  await removeRefreshToken(decoded?._id)
   res.clearCookie('refreshToken')
+
   return res.sendStatus(200)
 }
 

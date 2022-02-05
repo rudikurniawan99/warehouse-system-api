@@ -34,5 +34,5 @@ Authorization: Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDQwMjUzNj
 Content-Type: application/json
 
 {
-  "name": "Gembus"
+  "name": "Kentang"
 }

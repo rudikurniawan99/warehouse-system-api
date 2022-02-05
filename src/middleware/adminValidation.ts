@@ -16,16 +16,16 @@ const ownerAdminValidation = async (req: Request, res: Response, next: NextFunct
   } 
 }
 
-const commonAdminValidation = async (req: Request, res: Response, next: NextFunction) => {
+const adminValidation = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization']
   const accessToken = authHeader && authHeader.split(' ')[1]
   try {
     if(!accessToken) return res.sendStatus(401)
     const decoded = await jwtVerify<AccessTokenPayload>(accessToken, accessTokenPrivateKey) 
-    if(decoded?.adminStatus === 'ADMIN') next()
+    if(decoded?.adminStatus === 'ADMIN' || decoded?.adminStatus === 'OWNER') next()
   } catch (error) {
     return res.sendStatus(402) 
   }
 }
 
-export { ownerAdminValidation, commonAdminValidation }
+export { ownerAdminValidation, adminValidation }

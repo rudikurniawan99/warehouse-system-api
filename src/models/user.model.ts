@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  admin_status: {
+  adminStatus: {
     type: String,
     required: true,
     default: 'ADMIN'

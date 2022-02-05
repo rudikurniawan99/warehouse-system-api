@@ -23,3 +23,11 @@ export const deleteAllUser = async () => {
     throw new Error(e) 
   }
 }
+
+export const removeRefreshToken = async (id: string) => {
+  try {
+    return await UserModel.findOneAndUpdate({ id }, { refreshToken : null }) 
+  } catch (e: any) {
+    throw new Error(e);
+  }
+}

@@ -1,14 +1,14 @@
 import mongoose, { Document, Schema } from 'mongoose' 
 import { UserDocument } from './user.model'
 
-interface ProductInput {
+export interface ProductInput {
   adminId: UserDocument['_id']
   name: string,
   stock?: number,
   size?: string[]
 }
 
-interface ProductDocument extends ProductInput, Document {
+export interface ProductDocument extends ProductInput, Document {
   createdAt: Date
   updatedAt: Date
 } 

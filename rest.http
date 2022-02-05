@@ -26,3 +26,13 @@ DELETE http://localhost:4000/auth/logout
 
 ### 
 DELETE http://localhost:4000/auth/delete-all-user
+
+
+### Produc Create 
+POST http://localhost:4000/products
+Authorization: Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDQwMjUzNjksImV4cCI6MTY0NDAyNTQyOX0.VOzVQuXQvpGhTofQSG7z2VH2KBDQoY1NOPY5bLZbYdw
+Content-Type: application/json
+
+{
+  "name": "Gembus"
+}

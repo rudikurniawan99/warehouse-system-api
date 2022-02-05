@@ -36,13 +36,22 @@ export const loginUserHandler = async (req: Request<{}, {}, { email: string, pas
     const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
     const refreshTokenPrivateKey = String(process.env.REFRESH_TOKEN_PRIVATE_KEY)
 
-    const accessToken = jwtSign({ id: user._id }, accessTokenPrivateKey, {
+    const accessToken = jwtSign({ 
+      _id: user._id,
+      adminStatus: user.adminStatus
+    }, accessTokenPrivateKey, {
       expiresIn: '1m'
     })
 
-    const refreshToken = jwtSign({ id: user._id }, refreshTokenPrivateKey, {
+    const refreshToken = jwtSign({ 
+      _id: user._id,
+      adminStatus: user.adminStatus
+    }, refreshTokenPrivateKey, {
       expiresIn: '30d'
     })
+
+    user.refreshToken = refreshToken
+    user.save()
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,

@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { AccessTokenPayload } from "../interfaces/user.interface";
 import { jwtVerify } from "../utils/jwt";
 
-
 const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
 
 const ownerAdminValidation = async (req: Request, res: Response, next: NextFunction) => {
@@ -11,7 +10,7 @@ const ownerAdminValidation = async (req: Request, res: Response, next: NextFunct
   try {
     if(!accessToken) return res.sendStatus(401)
     const decoded  = await jwtVerify<AccessTokenPayload>(accessToken, accessTokenPrivateKey)
-    if(decoded?.admin_status === 'OWNER') next()
+    if(decoded?.adminStatus === 'OWNER') next()
   } catch (error) {
     return res.sendStatus(402) 
   } 
@@ -23,7 +22,7 @@ const commonAdminValidation = async (req: Request, res: Response, next: NextFunc
   try {
     if(!accessToken) return res.sendStatus(401)
     const decoded = await jwtVerify<AccessTokenPayload>(accessToken, accessTokenPrivateKey) 
-    if(decoded?.admin_status === 'ADMIN') next()
+    if(decoded?.adminStatus === 'ADMIN') next()
   } catch (error) {
     return res.sendStatus(402) 
   }

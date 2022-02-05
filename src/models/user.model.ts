@@ -5,12 +5,13 @@ export interface UserInput {
   name: string
   email: string
   password: string
-  admin_status: 'OWNER' | 'ADMIN'
+  adminStatus: 'OWNER' | 'ADMIN'
 }
 
 export interface UserDocument extends UserInput, Document {
   createdAt: Date
   updatedAt: Date
+  refreshToken?: string 
   verifyPassword: (passwordInput: string) => Promise<boolean>
 }
 

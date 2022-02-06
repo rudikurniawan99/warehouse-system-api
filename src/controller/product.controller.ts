@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { AccessTokenPayload } from "../interfaces/user.interface";
 import { ProductInput } from "../models/product.model";
-import { createProduct } from "../services/product.services";
+import { createProduct, findProductById } from "../services/product.services";
 import { jwtVerify } from "../utils/jwt";
+import removeImage from "../utils/removeImage";
 
-export const createProductHandler = async (req: Request<{}, {}, ProductInput>, res: Response) => {
+export const createProductHandler = async (req: Request<{}, {}, Omit<ProductInput, 'photo'>>, res: Response) => {
   const { body } = req
   
   const accessTokenPrivateKey = String(process.env.ACCESS_TOKEN_PRIVATE_KEY)
@@ -30,10 +31,29 @@ export const createProductHandler = async (req: Request<{}, {}, ProductInput>, r
   }
 }
 
-export const uploadImage = async (req: Request, res: Response) => {
+export const uploadImage = async (req: Request<{id: string}>, res: Response) => {
   const path = req?.file?.path
+  const { id } = req.params
 
-  res.status(200).json({
-    path
-  })
+  try {
+    const product = await findProductById(id)  
+    if(!product){
+      removeImage(path as string)
+      return res.status(400).json({
+        message: 'product not exist'
+      }) 
+    }
+    if(product.photo){
+      removeImage(product.photo)
+    }
+    product.photo = path
+    product.save()
+
+    res.status(201).json({
+      product
+    })
+  } catch (e) {
+    res.sendStatus(404) 
+  }
+  
 }

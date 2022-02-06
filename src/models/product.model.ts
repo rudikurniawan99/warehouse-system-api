@@ -4,6 +4,7 @@ import { UserDocument } from './user.model'
 export interface ProductInput {
   adminId: UserDocument['_id']
   name: string,
+  photo?: string,
   stock?: number,
   size?: string[]
 }
@@ -21,6 +22,10 @@ const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
+  },
+  photo: {
+    type: String,
+    default: null
   },
   stock: {
     type: Number,

@@ -8,6 +8,6 @@ import { createProductSchema } from "../schema/product.schema";
 const router = Router()
 
 router.post('/', validateResource(createProductSchema), adminValidation, createProductHandler)
-router.post('/upload', upload.single('test'), uploadImage)
+router.post('/upload/:id', upload.single('test'), uploadImage)
 
 export default router

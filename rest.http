@@ -30,24 +30,9 @@ DELETE http://localhost:4000/auth/delete-all-user
 
 ### Produc Create 
 POST http://localhost:4000/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZkZDRmZjM2ZGUyZWVmZTU1MjVhOGYiLCJhZG1pblN0YXR1cyI6IkFETUlOIiwiaWF0IjoxNjQ0MDMwNjM0LCJleHAiOjE2NDQwMzA2OTR9.CWN0YXazW3Kz--oyfKSY4TKkKXzSqCHA2HxYiIo3vsE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZkZDRmZjM2ZGUyZWVmZTU1MjVhOGYiLCJhZG1pblN0YXR1cyI6IkFETUlOIiwiaWF0IjoxNjQ0MTE5OTAxLCJleHAiOjE2NDQxMTk5NjF9.GeUbT8mlN4Q8bVXRBt-cU-e0c9pyafzrTfhgGzMYvrI
 Content-Type: application/json
 
 {
   "name": "Kentang"
 }
-
-### Upload image test
-POST http://localhost:4000/products/upload
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="text"
-
-title
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="1.png"
-Content-Type: image/png
-
-< ./1.png
-------WebKitFormBoundary7MA4YWxkTrZu0gW--

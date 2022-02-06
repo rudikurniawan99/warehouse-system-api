@@ -2,11 +2,8 @@ import path from 'path'
 import fs from 'fs'
 
 const removeImage = (filepath: string) => {
-  console.log('filepath', filepath);
-  console.log(__dirname);
-   
-  const deletedFilePath = path.join(__dirname, '../../public/images', filepath)
-  console.log('deletedfilepath',deletedFilePath);
+  const deletedFilePath = path.join(__dirname, '../../', filepath)
+  fs.unlinkSync(deletedFilePath)
 }
 
 export default removeImage

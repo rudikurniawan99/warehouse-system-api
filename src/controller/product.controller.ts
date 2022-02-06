@@ -31,7 +31,7 @@ export const createProductHandler = async (req: Request<{}, {}, ProductInput>, r
 }
 
 export const uploadImage = async (req: Request, res: Response) => {
-  const path = req.file?.path
+  const path = req?.file?.path
 
   res.status(200).json({
     path

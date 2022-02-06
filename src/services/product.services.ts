@@ -7,3 +7,12 @@ export const createProduct = async (body: ProductInput) => {
     throw new Error(e);
   } 
 }
+
+export const findProductById = async (id: string) => {
+  try {
+    return await ProductModel.findById(id) 
+  } catch (e: any) {
+    throw new Error(e);
+     
+  }
+}
